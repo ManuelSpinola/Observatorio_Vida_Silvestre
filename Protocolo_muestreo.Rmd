@@ -1,0 +1,102 @@
+---
+title: "Protocolo de Muestreo para Vida Silvestre"
+description: |
+  Grilla de referencia
+author:
+  - name: Manuel Spínola 
+    url: https://example.com/norajones
+    affiliation: ICOMVIS - UNA
+    affiliation_url: https://example.com/spacelysprokets
+date: "`r Sys.Date()`"
+output: distill::distill_article
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+```{r, message=FALSE, warning=FALSE, include=FALSE}
+library(tidyverse)
+library(sf)
+library(raster)
+library(rgeoboundaries)
+library(mapview)
+```
+
+
+```{r}
+df <- data.frame(x = rep(1:10, each = 10), y = rep(1:10, times = 10), letra = rep(letters[1:25], each =2, times = 2), com = rep(1:4, times = 25))
+
+df
+```
+
+```{r}
+ggplot(df, aes(x, y)) +
+  geom_tile() +
+  geom_text(aes(label = letra), color = "white")
+```
+
+
+```{r, include=FALSE}
+cr <- st_as_sf(getData('GADM', country='CRI', level=0))
+```
+
+```{r, include=FALSE}
+plot(cr["GID_0"])
+```
+
+```{r, include=FALSE}
+cr_5367 <- st_transform(cr, crs = 5367)
+```
+
+
+```{r, include=FALSE}
+cr_gb <- gb_adm0("costa rica", type = "hpscu")
+plot(st_geometry(cr_gb))
+```
+
+
+```{r, include=FALSE}
+grilla_cr_5367 <- st_make_grid(cr_5367,
+                          cellsize = 10000,
+                          crs = st_crs(cr_5367),
+                          what = "polygons",
+                          square = TRUE)
+```
+
+
+```{r, include=FALSE}
+plot(grilla_cr_5367, col = 'white')
+plot(st_geometry(cr_5367), col = "blue", add = T)
+```
+
+```{r, include=FALSE}
+grilla_cr_5367
+```
+
+```{r, echo=FALSE}
+ggplot() +
+  theme_minimal() +
+  geom_sf(data = cr_5367, aes(fill = GID_0), fill = "blue", alpha = 0.4) + coord_sf(datum = st_crs(5367))
+```
+
+
+```{r, echo=FALSE}
+ggplot() +
+  theme_minimal() +
+  geom_sf(data = grilla_cr_5367, color = "grey", fill = "white") +
+  geom_sf(data = cr_5367, aes(fill = GID_0), fill = "blue", alpha = 0.4) +
+  coord_sf(datum = st_crs(5367))
+```
+
+```{r}
+
+```
+
+
+
+
+
+
+
+
