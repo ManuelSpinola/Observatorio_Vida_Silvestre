@@ -1,8 +1,8 @@
-name: "R_observatorio_b"
-title: "My Website"
+name: "R_observatorio_de_vida_silvestre"
+title: "Observatorio de Vida Silvestre"
 description: |
   My Website
-output_dir: "_site"
+output_dir: "docs"
 navbar:
   right:
     - text: "Home"
