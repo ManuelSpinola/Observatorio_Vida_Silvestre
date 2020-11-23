@@ -1,7 +1,7 @@
 name: "R_observatorio_de_vida_silvestre"
 title: "Observatorio de Vida Silvestre"
 description: |
-  My Website
+  Sitio web para el Observatorio de Vida Silvestre (ICOMVIS, UNA)
 output_dir: "docs"
 exclude: ["mi_estilo.css"]
 navbar:
