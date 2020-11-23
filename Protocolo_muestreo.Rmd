@@ -17,6 +17,8 @@ knitr::opts_chunk$set(echo = FALSE)
 
 ```{r, message=FALSE, warning=FALSE, include=FALSE}
 library(tidyverse)
+library(rio)
+library(glue)
 library(sf)
 library(raster)
 library(rgeoboundaries)
@@ -24,16 +26,38 @@ library(mapview)
 ```
 
 
-```{r}
-df <- data.frame(x = rep(1:10, each = 10), y = rep(1:10, times = 10), letra = rep(letters[1:25], each =2, times = 2), com = rep(1:4, times = 25))
-
-df
+```{r, include=FALSE}
+df <- import("grilla.xlsx")
 ```
 
-```{r}
-ggplot(df, aes(x, y)) +
-  geom_tile() +
-  geom_text(aes(label = letra), color = "white")
+
+```{r, include=FALSE}
+df$celda <- paste(df$letra,"-",df$num)
+```
+
+```{r, include=FALSE}
+color1 <- rep(c("A", "B"), each = 4, times = 2)
+```
+
+```{r, include=FALSE}
+color2 <- rep(c("B", "A"), each = 4, times = 2)
+```
+
+```{r, include=FALSE}
+color3 <- rep(c("A", "B"), each = 4, times = 2)
+```
+
+```{r, include=FALSE}
+color4 <- rep(c("B", "A"), each = 4, times = 2)
+```
+
+```{r, include=FALSE}
+df$color <- c(color1, color2, color3, color4)
+```
+
+
+```{r, include=FALSE}
+df
 ```
 
 
@@ -55,10 +79,19 @@ cr_gb <- gb_adm0("costa rica", type = "hpscu")
 plot(st_geometry(cr_gb))
 ```
 
+```{r, echo=FALSE}
+ggplot() +
+  theme_minimal() +
+  geom_sf(data = cr_5367, aes(fill = GID_0), fill = "blue", alpha = 0.4) + coord_sf(datum = st_crs(5367))
+```
+
+### Grilla de referencia
+
+El territorio terrestre de Costa Rica se divide en una grilla de referencia de 8km x 8km. 
 
 ```{r, include=FALSE}
 grilla_cr_5367 <- st_make_grid(cr_5367,
-                          cellsize = 10000,
+                          cellsize = 8000,
                           crs = st_crs(cr_5367),
                           what = "polygons",
                           square = TRUE)
@@ -74,12 +107,6 @@ plot(st_geometry(cr_5367), col = "blue", add = T)
 grilla_cr_5367
 ```
 
-```{r, echo=FALSE}
-ggplot() +
-  theme_minimal() +
-  geom_sf(data = cr_5367, aes(fill = GID_0), fill = "blue", alpha = 0.4) + coord_sf(datum = st_crs(5367))
-```
-
 
 ```{r, echo=FALSE}
 ggplot() +
@@ -89,8 +116,26 @@ ggplot() +
   coord_sf(datum = st_crs(5367))
 ```
 
-```{r}
+### Detalle de cada celda de 8k x 8km
 
+Cada celda  de 8km x 8km está compuesta a su vez por tétradas de 4 celdas de 1 km organizadas en celdas de 2km x 2km. Hay 16 tétradas en cada celda de 8km x 8km.
+
+```{r, echo = FALSE}
+ggplot(df, aes(x, y)) +
+  theme_minimal() +
+  geom_tile(aes(fill = color), color = "black") +
+  geom_text(aes(label = celda), color = "black") +
+  scale_x_continuous(expand = c(0, 0)) +
+  scale_y_continuous(expand = c(0, 0)) +
+  theme(axis.ticks.x = element_blank(),
+        axis.text.x = element_blank()) +
+  theme(axis.ticks.y = element_blank(),
+        axis.text.y = element_blank()) +
+  theme(legend.position = "none") +
+  scale_fill_manual(values = c("grey", "white")) +
+  xlab("8 km") +
+  ylab("8 km") +
+  coord_equal()
 ```
 
 
