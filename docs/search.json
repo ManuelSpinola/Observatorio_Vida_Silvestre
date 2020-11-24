@@ -1,0 +1,35 @@
+{
+  "articles": [
+    {
+      "path": "about.html",
+      "title": "Acerca del Onservatorio de Vida Silvestre",
+      "description": "¿Qué es el Observatorio de Vida Silvestre?",
+      "author": [],
+      "contents": "\nEl Observatorio de Vida Silvestre es una iniciativa del Instituto Internacional en Conservación y Manejo de Vida Silvestre (ICOMVIS) de la Universidad Nacional (UNA) de Costa Rica. En este sitio se pretende comunicar aspectos relacionados al muestreo y monitoreo de la vida silvestre en Costa Rica.\n\n\n\n",
+      "last_modified": "2020-11-23T19:49:31-06:00"
+    },
+    {
+      "path": "index.html",
+      "title": "Observatorio de Vida Silvestre",
+      "description": "Bienvenido al Observatorio de Vida Silvestre del ICOMVIS, UNA, Costa Rica\n",
+      "author": [],
+      "contents": "\n\n\n\n\n\n\n",
+      "last_modified": "2020-11-23T19:49:32-06:00"
+    },
+    {
+      "path": "Protocolo_muestreo.html",
+      "title": "Protocolo de Muestreo para Vida Silvestre",
+      "description": "Grilla de referencia\n",
+      "author": [
+        {
+          "name": "Manuel Spínola",
+          "url": "http://www.icomvis.una.ac.cr/index.php/manuel"
+        }
+      ],
+      "date": "`r Sys.Date()`",
+      "contents": "\n\n\n\nGrilla de referencia\nEl territorio terrestre de Costa Rica se divide en una grilla de referencia de 8km x 8km.\n\n\n\n\n\n\nDetalle de cada celda de 8km x 8km\nCada celda de 8km x 8km está compuesta a su vez por tétradas de 4 celdas de 1 km organizadas en celdas de 2km x 2km. Hay 16 tétradas en cada celda de 8km x 8km.\n\n\n\n\n\n\n",
+      "last_modified": "2020-11-23T19:51:22-06:00"
+    }
+  ],
+  "collections": []
+}
